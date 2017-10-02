@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="hotelModule">
+<head>
+    <title>Discover Ilam</title>
+    <script src="https://code.angularjs.org/1.4.1/angular.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="https://code.angularjs.org/1.4.1/angular-route.min.js"></script>
+    <base href="/"/>
+    <style>
+        .container {
+            margin: 10px 25px 10px 250px;
+        }
+         .header {
+             width: 800px;
+             height: 80px;
+             text-align: center;
+             background-color: #00fa9a;
+         }
+
+        .footer {
+            background-color: #00fa9a;
+            text-align: center;
+        }
+
+        .leftMenu {
+            height: 500px;
+            background-color: #98fb98;
+            width: 150px;
+        }
+
+        .mainContent {
+            height: 500px;
+            background-color: #ffe4b5;
+            width: 650px;
+        }
+
+        a{
+            display:block;
+            padding:5px
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <table style="font-family: Arial">
+                <tr>
+                    <td colspan="2" class="header">
+                        <h1>Discover Ilam</h1>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftMenu">
+                        <a href="home">Home</a>
+                        <a href="places">Places</a>
+                        <a href="travelling">Travelling</a>
+                        <a href="hotels">Acommodation</a>
+
+                    </td>
+                    <td class="mainContent">
+                        <!--Views-->
+                        <ng-view>
+                            
+                        </ng-view>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="footer">
+                        <b>Visit Us @discoverIlam</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
