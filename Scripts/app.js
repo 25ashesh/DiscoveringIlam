@@ -16,6 +16,11 @@ var app = angular.module("hotelModule", ["ngRoute"])
                                 templateUrl: "Templates/hotels.html",
                                 controller: "hotelsController"
                             })
+                        .when("/hotels/:id",
+                            {
+                                templateUrl: "Templates/hotelDetails.html",
+                                controller: "hotelDetailsController"
+                            })
                         .when("/places",
                             {
                                 templateUrl: "Templates/places.html",
@@ -42,9 +47,19 @@ var app = angular.module("hotelModule", ["ngRoute"])
 
                         });
                 })
+                .controller("hotelDetailsController", function ($scope, $http, $routeParams) {
+                    $http({
+                        url: "HotelsService.asmx/GetHotel",
+                        params: { id: $routeParams.id },
+                        method: "get"
+                    })
+                        .then(function (response) {
+                            $scope.hotel = response.data;
+                        });
+                })
                 .controller("placesController", function ($scope) {
                     $scope.places = ["Kanyam", "Pathivara", "Maipokhari", "Shree Antu", "Sandakpur", "Pashupati Nagar", "Aaitabare"];
                 })
                 .controller("travellingController", function ($scope) {
                     $scope.info = "How to get here?";
-                })
+                });

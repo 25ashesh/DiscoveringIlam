@@ -1,13 +1,6 @@
 ﻿<h1>Accomodation facilities</h1>
 <ul>
     <li ng-repeat="hotel in hotels">
-        {{hotel.Name}}
-        <ul>
-            <li>
-                {{hotel.Location}}<br/>
-                {{hotel.Rate}}<br/>
-                {{hotel.Contact}}<br/>
-            </li>
-        </ul>
+        <a href="hotels/{{hotel.Id}}">{{hotel.Name}}</a>
     </li>
 </ul>

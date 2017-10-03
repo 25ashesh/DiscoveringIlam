@@ -15,9 +15,11 @@ using System.Web.Script.Serialization;
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 [System.Web.Script.Services.ScriptService]
-public class HotelsService : System.Web.Services.WebService {
+public class HotelsService : System.Web.Services.WebService
+{
 
-    public HotelsService () {
+    public HotelsService()
+    {
 
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
@@ -32,7 +34,7 @@ public class HotelsService : System.Web.Services.WebService {
 
         using (SqlConnection con = new SqlConnection(cs))
         {
-            SqlCommand cmd = new SqlCommand("Select * from tblHotels",con);
+            SqlCommand cmd = new SqlCommand("Select * from tblHotels", con);
             con.Open();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -51,5 +53,38 @@ public class HotelsService : System.Web.Services.WebService {
         JavaScriptSerializer jss = new JavaScriptSerializer();
         Context.Response.Write(jss.Serialize(listHotels));
     }
-    
+
+    [WebMethod]
+    public void GetHotel(int id)
+    {
+        Hotel hotel = new Hotel();
+
+        string cs = ConfigurationManager.ConnectionStrings["myCon56"].ConnectionString;
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            SqlCommand cmd = new SqlCommand("Select * from tblHotels where Id = @id", con);
+            SqlParameter param = new SqlParameter()
+            {
+                ParameterName = "@id",
+                Value = id
+            };
+            cmd.Parameters.Add(param);
+            //cmd.Parameters.AddWithValue("@id", id);
+            con.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                hotel.Id = Convert.ToInt32(rdr["Id"]);
+                hotel.Name = rdr["Name"].ToString();
+                hotel.Location = rdr["Location"].ToString();
+                hotel.Contact = rdr["Contact"].ToString();
+                hotel.Rate = rdr["Rate"].ToString();
+            }
+        }
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        Context.Response.Write(js.Serialize(hotel));
+    }
+
 }
