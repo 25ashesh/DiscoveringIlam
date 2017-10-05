@@ -1,5 +1,8 @@
 var app = angular.module("hotelModule", ["ngRoute"])
                 .config(function ($routeProvider, $locationProvider) {
+                  
+                    $routeProvider.caseInsensitiveMatch=true;
+                  
                     $routeProvider
                         .when("/",
                             {
